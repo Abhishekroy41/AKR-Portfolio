@@ -1,0 +1,593 @@
+import React, { useState } from 'react';
+import { Mail, Github, Code, User, ExternalLink, Briefcase, Calendar, Award, GraduationCap, Send, MessageCircle, Menu, X, Linkedin, Instagram } from 'lucide-react';
+import { motion } from 'framer-motion';
+import './index.css';
+
+const skillCategories = [
+  {
+    title: "Programming Languages",
+    skills: ["HTML", "CSS", "SQL", "Python"]
+  },
+  {
+    title: "Packages",
+    skills: ["NumPy", "Pandas", "Matplotlib", "Seaborn"]
+  },
+  {
+    title: "Databases",
+    skills: ["MySQL", "PostgreSQL"]
+  },
+  {
+    title: "Data Visualization Tools",
+    skills: ["Advanced MS Excel", "Power BI"]
+  },
+  {
+    title: "Analytical Abilities",
+    skills: ["Data Cleaning", "EDA", "Insight Generation", "Descriptive Statistics"]
+  },
+  {
+    title: "Tools & Platforms",
+    skills: ["Git", "GitHub", "VS Code"]
+  }
+];
+
+const projects = [
+  {
+    title: "Data Analysis Dashboard",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+    problem: "Sales data was scattered and difficult for the business team to interpret quickly.",
+    tools: "Python, SQL, Excel",
+    description: "Built an automated data pipeline and dashboard to aggregate daily sales metrics.",
+    result: "Reduced reporting time by 40% and identified a 15% revenue gap in Q3.",
+    githubLink: "#",
+    liveLink: "#"
+  },
+  {
+    title: "Customer Churn Prediction",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    problem: "High customer turnover in the subscription service with no early warning system.",
+    tools: "Python, Pandas, Scikit-Learn",
+    description: "Developed a machine learning model to predict which customers were most likely to churn.",
+    result: "Achieved an 85% accuracy rate, allowing targeted retention campaigns.",
+    githubLink: "#",
+    liveLink: "#"
+  },
+  {
+    title: "Financial Forecasting Tool",
+    image: "https://images.unsplash.com/photo-1543286386-2e659306cd6c?auto=format&fit=crop&q=80&w=800",
+    problem: "Manual financial projections were prone to human error and took weeks to produce.",
+    tools: "Python, SQL, Power BI",
+    description: "Analyzed historical trends and created an interactive forecasting vizualization.",
+    result: "Improved projection accuracy by 20% and enabled real-time scenario testing.",
+    githubLink: "#",
+    liveLink: "#"
+  }
+];
+
+const experiences = [
+  {
+    title: "Deloitte Australia Data Analytics – Job Simulation (Forage)",
+    organization: "Deloitte",
+    date: "February 2026",
+    points: [
+      "Completed a Deloitte data analytics job simulation involving real-world data analysis and forensic technology tasks.",
+      "Created an interactive data dashboard using Tableau.",
+      "Used Excel to classify datasets and derive business insights."
+    ]
+  },
+  {
+    title: "Front-End Web Development Training (Virtual)",
+    organization: "CSRBOX in collaboration with IBM SkillsBuild",
+    date: "June 2024 – August 2024",
+    points: [
+      "Completed structured online training in HTML, CSS, and JavaScript.",
+      "Built and submitted a final web development project as part of the program evaluation.",
+      "Earned a completion certificate for successful participation."
+    ]
+  },
+  {
+    title: "UI/UX Designer Intern",
+    organization: "NASSCOM Foundation – thingQbator (Cisco CSR Initiative)",
+    date: "October 2023 – January 2024",
+    points: [
+      "Designed user interface layouts using Figma and Canva.",
+      "Applied user experience principles to improve design usability.",
+      "Gained practical experience in visual design and digital product interfaces."
+    ]
+  }
+];
+
+const education = [
+  {
+    degree: "B.Tech, Computer Science in AI & ML",
+    institution: "Trident Academy of Technology, Bhubaneswar",
+    score: "CGPA: 7.63",
+    date: "12/2021 – 05/2025"
+  },
+  {
+    degree: "Senior Secondary (Class XII) – CBSE",
+    institution: "Imperial School of Learning, Dhanbad",
+    score: "Percentage: 64%",
+    date: "05/2019 – 05/2021"
+  }
+];
+
+function App() {
+  const [result, setResult] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending...");
+    const formData = new FormData(event.target);
+
+    // Web3Forms Access Key
+    formData.append("access_key", "ba6e9968-78ea-45e4-a282-2ddb9425c2d3");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setResult("Message Sent Successfully!");
+        event.target.reset();
+      } else {
+        console.log("Error", data);
+        setResult(data.message || "Something went wrong.");
+      }
+    } catch (error) {
+      console.error(error);
+      setResult("Failed to send. Please try again later.");
+    }
+
+    // Hide the result message after 5 seconds
+    setTimeout(() => {
+      setResult("");
+    }, 5000);
+  };
+
+  return (
+    <div className="app-container">
+      <nav className="navbar">
+        <div className="nav-brand">Abhishek Kumar</div>
+        <div className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </div>
+        <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
+          <li><a href="#about" onClick={() => setIsMenuOpen(false)}>About</a></li>
+          <li><a href="#skills" onClick={() => setIsMenuOpen(false)}>Skills</a></li>
+          <li><a href="#projects" onClick={() => setIsMenuOpen(false)}>Projects</a></li>
+          <li><a href="#experience" onClick={() => setIsMenuOpen(false)}>Experience</a></li>
+          <li><a href="#education" onClick={() => setIsMenuOpen(false)}>Education</a></li>
+          <li><a href="#contact" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
+        </ul>
+      </nav>
+
+      <main id="home" className="hero-section">
+        <motion.div
+          className="hero-content"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <motion.h4
+            className="greeting"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <span className="typewriter">Hello, My name is</span>
+          </motion.h4>
+          <motion.h1
+            className="name"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            Abhishek Kumar <span>Roy</span>
+          </motion.h1>
+          <motion.h3
+            className="subtitle"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            Data Analyst | SQL • Excel • Power BI • Python | Data Visualization
+          </motion.h3>
+          <motion.p
+            className="description"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.7 }}
+          >
+            Data-driven professional with a B.Tech in Computer Science (AI & ML), specializing in extracting actionable insights from complex datasets through statistical analysis and visualization. Proficient in Python, SQL, Excel, and Power BI, with hands-on experience in data cleaning, modeling, and dashboard development. Strong analytical mindset with a focus on transforming raw data into strategic, data-backed business decisions.
+          </motion.p>
+          <motion.div
+            className="action-buttons"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+          >
+            <a href="#projects" className="primary-btn">View my work</a>
+            <a href="/DA_CV.pdf" target="_blank" rel="noreferrer" className="secondary-btn">View resume</a>
+          </motion.div>
+          <motion.div
+            className="social-links"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 1.1 }}
+          >
+            <a href="mailto:abhiroy8986@gmail.com" className="social-icon" title="Email" target="_blank" rel="noreferrer"><Mail size={24} /></a>
+            <a href="https://github.com/Abhishekroy41" className="social-icon" title="GitHub" target="_blank" rel="noreferrer"><Github size={24} /></a>
+            <a href="https://www.hackerrank.com/profile/abhiroy8986" className="social-icon" title="HackerRank" target="_blank" rel="noreferrer"><Code size={24} /></a>
+            <a href="https://www.linkedin.com/in/abhishek-kumar-roy-51a403277" className="social-icon" title="LinkedIn" target="_blank" rel="noreferrer"><Linkedin size={24} /></a>
+            <a href="https://www.instagram.com/iamabhishekumaroy" className="social-icon" title="Instagram" target="_blank" rel="noreferrer"><Instagram size={24} /></a>
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          className="hero-image-container"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+        >
+          <img src="/hero_data_analyst.png" alt="Data Analyst Illustration" className="hero-illustration" />
+        </motion.div>
+
+        <div className="hero-glow"></div>
+      </main>
+
+      <section id="about" className="about-section">
+        <motion.div
+          className="about-container"
+          initial={{ opacity: 0, y: 50, rotateX: 20 }}
+          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.div
+            className="about-image-wrapper"
+            whileHover={{ scale: 1.05, rotateY: 10 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <div className="about-image-circle">
+              <img src="/profile (2).jpg" alt="Abhishek Kumar Roy Profile" />
+            </div>
+          </motion.div>
+          <div className="about-content">
+            <h2 className="section-title">About <span>Me</span></h2>
+            <p className="about-text">
+              Hello! I'm Abhishek Kumar Roy, a Computer Science Engineering graduate specializing in Artificial Intelligence and Machine Learning with a strong interest in Data Analysis and Data-Driven Decision Making. I enjoy working with data to uncover insights, identify trends, and transform raw information into meaningful visualizations.
+            </p>
+            <p className="about-text">
+              I have experience working with Python, SQL, Excel, and Data Visualization tools to analyze datasets and present insights effectively. I am passionate about solving real-world problems using data and continuously improving my analytical and problem-solving skills.
+            </p>
+            <p className="about-text">
+              Along with data analytics, I have also developed technical projects such as a MERN Stack Blog Application, a Portfolio Website, and a Spotify Clone using HTML and CSS, which helped me strengthen my development and problem-solving abilities.
+            </p>
+            <p className="about-text">
+              I am currently seeking opportunities as a Data Analyst where I can apply my analytical skills, work with real datasets, and contribute to data-driven business solutions.
+            </p>
+          </div>
+        </motion.div>
+      </section>
+
+      <section id="skills" className="skills-section">
+        <motion.div
+          className="skills-container"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <h2 className="section-title center-title">My <span>Skills</span></h2>
+          <div className="skills-grid">
+            {skillCategories.map((category, index) => (
+              <motion.div
+                key={index}
+                className="skill-card"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -10, boxShadow: "0 10px 30px -10px rgba(88, 166, 255, 0.4)" }}
+              >
+                <div className="skill-card-inner">
+                  <h3 className="skill-category-title">{category.title}</h3>
+                  <div className="skill-tags">
+                    {category.skills.map((skill, idx) => (
+                      <span key={idx} className="skill-tag">{skill}</span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      <section id="projects" className="projects-section">
+        <motion.div
+          className="projects-container"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          <div className="center-title">
+            <h2 className="section-title">My <span>Projects</span></h2>
+            <p className="section-subtitle">A selection of projects where I analyzed data, built visualizations, and uncovered meaningful insights.</p>
+          </div>
+
+          <div className="projects-grid">
+            {projects.map((project, index) => (
+              <motion.div
+                key={index}
+                className="project-card"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -10 }}
+              >
+                <div className="project-image">
+                  <img src={project.image} alt={project.title} />
+                </div>
+                <div className="project-content">
+                  <h3 className="project-title">{project.title}</h3>
+                  <div className="project-details">
+                    <p><strong>Problem:</strong> {project.problem}</p>
+                    <p><strong>Tools:</strong> <span className="highlight-tools">{project.tools}</span></p>
+                    <p><strong>Description:</strong> {project.description}</p>
+                    <p><strong>Result:</strong> <span className="highlight-success">{project.result}</span></p>
+                  </div>
+                  <div className="project-links">
+                    <a href={project.githubLink} className="project-link" title="GitHub Repo">
+                      <Github size={20} /> <span className="link-text">GitHub</span>
+                    </a>
+                    <a href={project.liveLink} className="project-link" title="Live Demo">
+                      <ExternalLink size={20} /> <span className="link-text">Live Demo</span>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      <section id="experience" className="experience-section">
+        <motion.div
+          className="experience-container"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          <div className="center-title">
+            <h2 className="section-title">Experience & <span>Professional Training</span></h2>
+            <p className="section-subtitle">Industry training, certifications, and hands-on programs that strengthened my skills in data analytics, development, and design.</p>
+          </div>
+
+          <div className="timeline-container">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                className="timeline-item"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+                viewport={{ once: true }}
+              >
+                <div className="timeline-dot">
+                  <Briefcase size={20} />
+                </div>
+                <div className="timeline-content">
+                  <div className="timeline-header">
+                    <h3 className="timeline-title">{exp.title}</h3>
+                    <span className="timeline-date">
+                      <Calendar size={16} /> {exp.date}
+                    </span>
+                  </div>
+                  {exp.organization && <h4 className="timeline-org">{exp.organization}</h4>}
+                  <ul className="timeline-points">
+                    {exp.points.map((point, idx) => (
+                      <li key={idx}>{point}</li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      <section id="activities" className="activities-section">
+        <motion.div
+          className="activities-container"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="activities-grid">
+            {/* Achievements Column */}
+            <div className="achievements-column">
+              <h2 className="section-title">Achievements <span>& Activities</span></h2>
+              <div className="achievements-content">
+                <h3 className="achievement-heading">
+                  <Award className="inline-icon" size={24} /> Hackathon Participation
+                </h3>
+                <ul className="achievement-list">
+                  <li>Participated in INVENTRON 2023 – National Level Hackathon, gaining experience in problem-solving and team collaboration.</li>
+                  <li>Participated in Odisha’s Biggest Hackathon 2022, worked in a team to develop innovative solutions under time constraints.</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Hobbies Column */}
+            <div className="hobbies-column">
+              <h2 className="section-title">My <span>Hobbies</span></h2>
+              <div className="hobbies-content">
+                <motion.div className="hobby-card">
+                  <span className="hobby-emoji">📚</span>
+                  <div className="hobby-info">
+                    <h4>Reading</h4>
+                    <p>Expanding knowledge through books.</p>
+                  </div>
+                </motion.div>
+                <motion.div className="hobby-card">
+                  <span className="hobby-emoji">🌍</span>
+                  <div className="hobby-info">
+                    <h4>Travelling</h4>
+                    <p>Exploring new places and experiences.</p>
+                  </div>
+                </motion.div>
+                <motion.div className="hobby-card">
+                  <span className="hobby-emoji">🚀</span>
+                  <div className="hobby-info">
+                    <h4>Learning</h4>
+                    <p>Building new skills every day.</p>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      <section id="education" className="education-section">
+        <motion.div
+          className="education-container"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          <div className="center-title">
+            <h2 className="section-title">My <span>Education</span></h2>
+          </div>
+
+          <div className="education-cards">
+            {education.map((edu, index) => (
+              <motion.div
+                key={index}
+                className="education-card"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -10, boxShadow: "0 20px 40px -10px rgba(88, 166, 255, 0.3)" }}
+              >
+                <div className="edu-icon-wrapper">
+                  <GraduationCap size={40} />
+                </div>
+                <div className="edu-content">
+                  <span className="edu-date">{edu.date}</span>
+                  <h3 className="edu-degree">{edu.degree}</h3>
+                  <h4 className="edu-institution">{edu.institution}</h4>
+                  <div className="edu-score">
+                    <strong>Score:</strong> <span>{edu.score}</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      <section id="contact" className="contact-section">
+        <motion.div
+          className="contact-container"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="center-title">
+            <h2 className="section-title">Let's Build Something <span>Together</span></h2>
+            <p className="section-subtitle">I'm currently open to new opportunities and my inbox is always open. Whether you have a question, a proposal, or just want to say hi, feel free to reach out!</p>
+          </div>
+
+          <div className="contact-content">
+            <motion.form
+              className="contact-form"
+              onSubmit={onSubmit}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <div className="input-group">
+                <input type="text" name="name" placeholder="Full Name" required className="contact-input" />
+              </div>
+              <div className="input-group">
+                <input type="email" name="email" placeholder="Email Address" required className="contact-input" />
+              </div>
+              <div className="input-group">
+                <textarea name="message" placeholder="Message" required rows="5" className="contact-input contact-textarea"></textarea>
+              </div>
+              <button type="submit" className="contact-submit-btn" disabled={result === "Sending..."}>
+                {result === "Sending..." ? "Sending..." : <>Send Message <Send size={18} /></>}
+              </button>
+              {result && (
+                <p className={`form-result-message ${result.includes("Successfully") ? 'success' : 'error'}`}>
+                  {result}
+                </p>
+              )}
+            </motion.form>
+
+            <motion.div
+              className="contact-divider"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <div className="divider-line"></div>
+              <span>or contact me directly via</span>
+              <div className="divider-line"></div>
+            </motion.div>
+
+            <motion.div
+              className="direct-contact-options"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <a href="https://wa.me/918935986254" target="_blank" rel="noreferrer" className="direct-contact-card">
+                <div className="contact-icon bg-whatsapp">
+                  <MessageCircle size={28} />
+                </div>
+                <div className="contact-info">
+                  <h4>WhatsApp</h4>
+                  <p>+91 8935986254</p>
+                </div>
+              </a>
+
+              <a href="mailto:abhiroy8986@gmail.com" className="direct-contact-card">
+                <div className="contact-icon bg-email">
+                  <Mail size={28} />
+                </div>
+                <div className="contact-info">
+                  <h4>Email</h4>
+                  <p>abhiroy8986@gmail.com</p>
+                </div>
+              </a>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      <footer className="footer">
+        <p>Designed & Built by <span>Abhishek Kumar Roy</span>.</p>
+      </footer>
+    </div>
+  );
+}
+
+export default App;
