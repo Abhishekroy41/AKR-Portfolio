@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Mail, Github, Code, User, ExternalLink, Briefcase, Calendar, Award, GraduationCap, Send, MessageCircle, Menu, X, Linkedin, Instagram } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Mail, Github, Code, User, ExternalLink, Briefcase, Calendar, Award, GraduationCap, Send, MessageCircle, Menu, X, Linkedin, Instagram, ChevronRight, ChevronLeft, Star, UserCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './index.css';
 
@@ -111,9 +111,116 @@ const education = [
   }
 ];
 
+const iterImages = [
+  "/ITER/IMG_3045.JPG.jpeg",
+  "/ITER/img1.jpeg",
+  "/ITER/img10.jpeg",
+  "/ITER/img2.jpeg",
+  "/ITER/img3.jpeg",
+  "/ITER/img4.jpeg",
+  "/ITER/img5.jpeg",
+  "/ITER/img6.jpeg",
+  "/ITER/img7.jpeg",
+  "/ITER/img8.jpeg",
+  "/ITER/img9.jpeg"
+];
+
+const mlritImages = [
+  "/MLRIT/IMG_3044.JPG.jpeg",
+  "/MLRIT/frie.jpeg",
+  "/MLRIT/friemds.jpeg",
+  "/MLRIT/g_team.jpeg",
+  "/MLRIT/group.jpeg",
+  "/MLRIT/groups.jpeg",
+  "/MLRIT/imgkiit.jpeg",
+  "/MLRIT/imgss.jpeg",
+  "/MLRIT/my.jpeg",
+  "/MLRIT/pp.jpeg",
+  "/MLRIT/profile.jpg",
+  "/MLRIT/trident.jpeg"
+];
+
+const ImageSlider = ({ images }) => {
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    if (!images || images.length === 0) return;
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+          scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          scrollRef.current.scrollBy({ left: clientWidth, behavior: 'smooth' });
+        }
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [images]);
+
+  return (
+    <div className="slider-container" ref={scrollRef}>
+      {images && images.length > 0 ? (
+        images.map((img, i) => (
+          <div key={i} className="slider-item">
+            <img src={img} alt={`Slide ${i}`} loading="lazy" />
+          </div>
+        ))
+      ) : (
+        <div className="empty-slider">
+          <p>No images added yet.</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const initialReviews = [
+  {
+    id: 1,
+    name: "Rajesh Kumar",
+    rating: 5,
+    comment: "Amazing portfolio! The layout is incredibly clean, and the Apple-style swipe carousel is very innovative.",
+    date: "2026-03-01"
+  },
+  {
+    id: 2,
+    name: "Priya Sharma",
+    rating: 4,
+    comment: "Very solid data analytics background. The projects are well-presented.",
+    date: "2026-03-05"
+  }
+];
+
 function App() {
   const [result, setResult] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [reviews, setReviews] = useState(initialReviews);
+  const [newReview, setNewReview] = useState({ name: "", comment: "", rating: 5 });
+  const [reviewFormResult, setReviewFormResult] = useState("");
+
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    if (!newReview.name || !newReview.comment) {
+      setReviewFormResult("Please fill out all fields.");
+      return;
+    }
+    const newEntry = {
+      id: Date.now(),
+      name: newReview.name,
+      rating: newReview.rating,
+      comment: newReview.comment,
+      date: new Date().toISOString().split('T')[0]
+    };
+    setReviews([newEntry, ...reviews]);
+    setNewReview({ name: "", comment: "", rating: 5 });
+    setReviewFormResult("Thank you for your review!");
+    setTimeout(() => setReviewFormResult(""), 3000);
+  };
+
+  useEffect(() => {
+    // Reset or standard event listeners can go here
+  }, []);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -157,7 +264,7 @@ function App() {
           {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </div>
         <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-          <li><a href="#about" onClick={() => setIsMenuOpen(false)}>About</a></li>
+          <li><a href="#about" onClick={() => setIsMenuOpen(false)}>About & Journey</a></li>
           <li><a href="#skills" onClick={() => setIsMenuOpen(false)}>Skills</a></li>
           <li><a href="#projects" onClick={() => setIsMenuOpen(false)}>Projects</a></li>
           <li><a href="#experience" onClick={() => setIsMenuOpen(false)}>Experience</a></li>
@@ -240,39 +347,102 @@ function App() {
         <div className="hero-glow"></div>
       </main>
 
-      <section id="about" className="about-section">
-        <motion.div
-          className="about-container"
-          initial={{ opacity: 0, y: 50, rotateX: 20 }}
-          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.div
-            className="about-image-wrapper"
-            whileHover={{ scale: 1.05, rotateY: 10 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            <div className="about-image-circle">
-              <img src="/profile (2).jpg" alt="Abhishek Kumar Roy Profile" />
+      <section id="about" className="carousel-section">
+        <div className="carousel-container">
+          <div className="carousel-track">
+
+            {/* PANE 1: ABOUT ME */}
+            <div className="carousel-pane">
+              <div className="about-scroll-card premium-card">
+                <h2 className="carousel-pane-title text-center" style={{ marginBottom: "3rem" }}>About <span>Me</span></h2>
+                <div className="about-card-inner-original">
+
+                  {/* TEXT LEFT */}
+                  <div className="about-card-body-original">
+                    <p className="about-text">
+                      Hello! I'm Abhishek Kumar Roy, a Computer Science Engineering graduate specializing in Artificial Intelligence and Machine Learning with a strong interest in Data Analysis and Data-Driven Decision Making. I enjoy working with data to uncover insights, identify trends, and transform raw information into meaningful visualizations.
+                    </p>
+                    <p className="about-text">
+                      I have experience working with Python, SQL, Excel, and Data Visualization tools to analyze datasets and present insights effectively. I am passionate about solving real-world problems using data and continuously improving my analytical and problem-solving skills.
+                    </p>
+                    <p className="about-text">
+                      Along with data analytics, I have also developed technical projects such as a MERN Stack Blog Application, a Portfolio Website, and a Spotify Clone using HTML and CSS, which helped me strengthen my development and problem-solving abilities.
+                    </p>
+                    <p className="about-text">
+                      I am currently seeking opportunities as a Data Analyst where I can apply my analytical skills, work with real datasets, and contribute to data-driven business solutions.
+                    </p>
+                  </div>
+
+                  {/* IMAGE RIGHT */}
+                  <motion.div
+                    className="about-image-wrapper-centered"
+                    whileHover={{ scale: 1.05, rotateY: 10 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <div className="about-image-circle-premium">
+                      <img src="/profile (2).jpg" alt="Abhishek Kumar Roy Profile" />
+                    </div>
+                  </motion.div>
+
+                </div>
+
+                {/* Scroll Right Indicator */}
+                <div className="scroll-indicator scroll-right">
+                  <span className="scroll-text">Swipe for My Journey</span>
+                  <ChevronRight size={24} className="bounce-right" />
+                </div>
+              </div>
             </div>
-          </motion.div>
-          <div className="about-content">
-            <h2 className="section-title">About <span>Me</span></h2>
-            <p className="about-text">
-              Hello! I'm Abhishek Kumar Roy, a Computer Science Engineering graduate specializing in Artificial Intelligence and Machine Learning with a strong interest in Data Analysis and Data-Driven Decision Making. I enjoy working with data to uncover insights, identify trends, and transform raw information into meaningful visualizations.
-            </p>
-            <p className="about-text">
-              I have experience working with Python, SQL, Excel, and Data Visualization tools to analyze datasets and present insights effectively. I am passionate about solving real-world problems using data and continuously improving my analytical and problem-solving skills.
-            </p>
-            <p className="about-text">
-              Along with data analytics, I have also developed technical projects such as a MERN Stack Blog Application, a Portfolio Website, and a Spotify Clone using HTML and CSS, which helped me strengthen my development and problem-solving abilities.
-            </p>
-            <p className="about-text">
-              I am currently seeking opportunities as a Data Analyst where I can apply my analytical skills, work with real datasets, and contribute to data-driven business solutions.
-            </p>
+
+            {/* PANE 2: MY JOURNEY (Contains Subsections) */}
+            <div className="carousel-pane">
+              <div className="journey-scroll-card premium-card">
+
+                {/* Scroll Left Indicator */}
+                <div className="scroll-indicator scroll-left">
+                  <ChevronLeft size={24} className="bounce-left" />
+                  <span className="scroll-text">Swipe back for About Me</span>
+                </div>
+
+                <h2 className="carousel-pane-title text-center" style={{ marginBottom: "3rem" }}>My <span>Journey</span></h2>
+
+                <div className="journey-subsections">
+                  {/* ITER HACKATHON */}
+                  <div className="journey-subsection">
+                    <div className="journey-header">
+                      <span className="premium-badge">Hackathon</span>
+                      <h3 className="carousel-pane-title-small">ITER Odisha Hackathon</h3>
+                      <p>I participated in the ITER Odisha Hackathon where I worked on innovative ideas and received a participation certificate.</p>
+                    </div>
+                    <ImageSlider images={iterImages} />
+                  </div>
+
+                  {/* MLRIT HACKATHON */}
+                  <div className="journey-subsection">
+                    <div className="journey-header">
+                      <span className="premium-badge">Hackathon</span>
+                      <h3 className="carousel-pane-title-small">MLRIT Hyderabad Hackathon</h3>
+                      <p>I participated in the MLRIT Hyderabad Hackathon where I collaborated with other developers and built creative solutions.</p>
+                    </div>
+                    <ImageSlider images={mlritImages} />
+                  </div>
+
+                  {/* FUTURE HACKATHON */}
+                  <div className="journey-subsection">
+                    <div className="journey-header">
+                      <span className="premium-badge future">Upcoming</span>
+                      <h3 className="carousel-pane-title-small">Future Hackathon</h3>
+                      <p>An empty block reserved for my upcoming participation in future hackathons.</p>
+                    </div>
+                    <ImageSlider images={[]} />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
           </div>
-        </motion.div>
+        </div>
       </section>
 
       <section id="skills" className="skills-section">
@@ -579,6 +749,106 @@ function App() {
                 </div>
               </a>
             </motion.div>
+          </div>
+        </motion.div>
+      </section>
+
+      <section id="reviews" className="reviews-section">
+        <motion.div
+          className="reviews-container"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          <div className="center-title">
+            <h2 className="section-title">Reviews & <span>Ratings</span></h2>
+            <p className="section-subtitle">What do you think about my portfolio? I'd love to hear your feedback!</p>
+          </div>
+
+          <div className="reviews-layout">
+            <div className="reviews-form-container premium-card">
+              <h3 className="review-card-title">Leave a Review</h3>
+              <form className="review-form" onSubmit={handleReviewSubmit}>
+                <div className="input-group">
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    className="contact-input"
+                    value={newReview.name}
+                    onChange={(e) => setNewReview({ ...newReview, name: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="rating-select">
+                  <span className="rating-label">Rating:</span>
+                  <div className="star-rating">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star
+                        key={star}
+                        size={28}
+                        className={star <= newReview.rating ? 'star-filled' : 'star-empty'}
+                        onClick={() => setNewReview({ ...newReview, rating: star })}
+                        fill={star <= newReview.rating ? "currentColor" : "none"}
+                        style={{ cursor: 'pointer' }}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div className="input-group">
+                  <textarea
+                    placeholder="Your Comment..."
+                    rows="4"
+                    className="contact-input contact-textarea"
+                    value={newReview.comment}
+                    onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                    required
+                  ></textarea>
+                </div>
+                <button type="submit" className="primary-btn submit-review-btn">Post Review</button>
+                {reviewFormResult && (
+                  <p className={`form-result-message ${reviewFormResult.includes("Thank you") ? 'success' : 'error'}`}>
+                    {reviewFormResult}
+                  </p>
+                )}
+              </form>
+            </div>
+
+            <div className="reviews-list">
+              <h3 className="review-list-title">Recent Feedback</h3>
+              <div className="reviews-scroll">
+                {reviews.map((review) => (
+                  <motion.div
+                    key={review.id}
+                    className="review-item premium-card"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <div className="review-header">
+                      <div className="review-user">
+                        <UserCircle size={42} className="user-avatar" />
+                        <div className="review-user-info">
+                          <strong>{review.name}</strong>
+                          <span className="review-date">{review.date}</span>
+                        </div>
+                      </div>
+                      <div className="review-stars">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star
+                            key={star}
+                            size={16}
+                            fill={star <= review.rating ? "#f59e0b" : "none"}
+                            color={star <= review.rating ? "#f59e0b" : "rgba(255, 255, 255, 0.1)"}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    <p className="review-comment">{review.comment}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
         </motion.div>
       </section>
