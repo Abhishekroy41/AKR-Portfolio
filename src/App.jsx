@@ -259,7 +259,9 @@ function App() {
   return (
     <div className="app-container">
       <nav className="navbar">
-        <div className="nav-brand">Abhishek Kumar</div>
+        <a href="#home" className="nav-brand" onClick={() => setIsMenuOpen(false)}>
+          Abhishek Kumar
+        </a>
         <div className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </div>
@@ -320,6 +322,7 @@ function App() {
           >
             <a href="#projects" className="primary-btn">View my work</a>
             <a href="/DA_CV.pdf" target="_blank" rel="noreferrer" className="secondary-btn">View resume</a>
+            <a href="/explore" className="secondary-btn">Explore more</a>
           </motion.div>
           <motion.div
             className="social-links"
