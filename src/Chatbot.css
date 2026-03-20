@@ -446,15 +446,62 @@
 }
 
 @media screen and (max-width: 576px) {
-  .chatbot-window {
-    width: calc(100vw - 2rem);
+  .chatbot-wrapper {
+    bottom: 1.2rem;
     right: 1rem;
-    bottom: 5.5rem;
-    height: 550px;
   }
+
+  /* Make Chat Window take up the entire screen like a native app */
+  .chatbot-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border-radius: 0 !important;
+    border: none !important;
+    background: #0d1117 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    z-index: 100000;
+  }
+
+  /* Hide toggle button completely when chat is open (since chat handles its own X close button) */
+  .chatbot-wrapper > .chatbot-toggle-btn.active {
+    display: none;
+  }
+
+  /* Shrink closed floating button to an icon-only circle to save space */
   .chatbot-toggle-btn {
-    width: 60px;
-    height: 60px;
+    height: 54px;
+    min-width: 54px;
+    padding: 0;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+  }
+  
+  .chatbot-toggle-text {
+    display: none;
+  }
+
+  .chatbot-header {
+    border-radius: 0;
+    padding: 1.2rem 1rem;
+    background: #161b22;
+  }
+
+  .chatbot-messages {
+    padding: 1rem;
+    gap: 1.2rem;
+    padding-bottom: 2rem;
+  }
+
+  .chatbot-input-area {
+    padding: 0.8rem 1rem;
+    background: #161b22;
+    padding-bottom: calc(0.8rem + env(safe-area-inset-bottom));
   }
 }
 
