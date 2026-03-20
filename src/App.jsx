@@ -30,6 +30,49 @@ const skillCategories = [
   }
 ];
 
+const certificates = [
+  {
+    title: "Training on Core Java",
+    issuer: "Lakshya Institute of Technology (LIT)",
+    date: "25 Apr 2024",
+    badge: "🎓",
+    type: "Certification",
+    image: "/certificates/cert_lit_java.jpg"
+  },
+  {
+    title: "INVENTRON 2K23 – National Level Hackathon",
+    issuer: "MLRIT Centre for Innovation & Entrepreneurship",
+    date: "27–28 Jan 2023",
+    badge: "🏅",
+    type: "Participation",
+    image: "/certificates/cert_inventron.jpg"
+  },
+  {
+    title: "Code 4 Odisha – Odisha's Biggest Hackathon",
+    issuer: "ITER, Siksha O' Anusandhan University",
+    date: "27–28 Aug 2022",
+    badge: "🏅",
+    type: "Participation",
+    image: "/certificates/cert_code4odisha.jpg"
+  },
+  {
+    title: "Python Programming",
+    issuer: "CoDing SeeKho by Vikas Singh (ISO Certified)",
+    date: "21 Apr 2025",
+    badge: "🐍",
+    type: "Completion",
+    image: "/certificates/cert_python.jpg"
+  },
+  {
+    title: "Certificate Course on Artificial Intelligence",
+    issuer: "Infosys Foundation Finishing School for Employability (ICT Academy)",
+    date: "25 Nov 2024",
+    badge: "🤖",
+    type: "Recognition",
+    image: "/certificates/cert_infosys_ai.jpg"
+  }
+];
+
 const projects = [
   {
     title: "Data Analysis Dashboard",
@@ -198,6 +241,7 @@ function App() {
   const [reviews, setReviews] = useState(initialReviews);
   const [newReview, setNewReview] = useState({ name: "", comment: "", rating: 5 });
   const [reviewFormResult, setReviewFormResult] = useState("");
+  const [activeSkillsTab, setActiveSkillsTab] = useState('skills');
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
@@ -312,7 +356,11 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.7 }}
           >
-            Data-driven professional with a B.Tech in Computer Science (AI & ML), specializing in extracting actionable insights from complex datasets through statistical analysis and visualization. Proficient in Python, SQL, Excel, and Power BI, with hands-on experience in data cleaning, modeling, and dashboard development. Strong analytical mindset with a focus on transforming raw data into strategic, data-backed business decisions.
+            Data-driven professional with a B.Tech in Computer Science (AI & ML),
+            specializing in extracting actionable insights from complex datasets through statistical
+            analysis and visualization. Proficient in Python, SQL, Excel, and Power BI, with hands-on
+            experience in data cleaning, modeling, and dashboard development. Strong analytical mindset
+            with a focus on transforming raw data into strategic, data-backed business decisions.
           </motion.p>
           <motion.div
             className="action-buttons"
@@ -449,37 +497,134 @@ function App() {
       </section>
 
       <section id="skills" className="skills-section">
-        <motion.div
-          className="skills-container"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <h2 className="section-title center-title">My <span>Skills</span></h2>
-          <div className="skills-grid">
-            {skillCategories.map((category, index) => (
-              <motion.div
-                key={index}
-                className="skill-card"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10, boxShadow: "0 10px 30px -10px rgba(88, 166, 255, 0.4)" }}
-              >
-                <div className="skill-card-inner">
-                  <h3 className="skill-category-title">{category.title}</h3>
-                  <div className="skill-tags">
-                    {category.skills.map((skill, idx) => (
-                      <span key={idx} className="skill-tag">{skill}</span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        {/* --- Portfolio Showcase Header --- */}
+        <div className="showcase-header">
+          <motion.p
+            className="showcase-eyebrow"
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            ✦ What I Bring to the Table ✦
+          </motion.p>
+          <motion.h2
+            className="showcase-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            Portfolio <span>Showcase</span>
+          </motion.h2>
+          <motion.p
+            className="showcase-description"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            A curated display of technical expertise and professional achievements.<br />
+            Built with precision, driven by data, and powered by curiosity.
+          </motion.p>
+        </div>
+
+        {/* --- Tab Toggle Buttons --- */}
+        <div className="skills-tab-switcher">
+          <button
+            className={`skills-tab-btn ${activeSkillsTab === 'skills' ? 'active' : ''}`}
+            onClick={() => setActiveSkillsTab('skills')}
+          >
+            &lt;&gt; My Skills
+          </button>
+          <button
+            className={`skills-tab-btn ${activeSkillsTab === 'certs' ? 'active' : ''}`}
+            onClick={() => setActiveSkillsTab('certs')}
+          >
+            🏅 Certificates
+          </button>
+        </div>
+
+        {/* --- Tab Content --- */}
+        <div className="skills-tab-content">
+          {activeSkillsTab === 'skills' && (
+            <motion.div
+              className="skills-container"
+              key="skills"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <div className="skills-grid">
+                {skillCategories.map((category, index) => (
+                  <motion.div
+                    key={index}
+                    className="skill-card"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.08 }}
+                    whileHover={{ y: -10, boxShadow: "0 10px 30px -10px rgba(88, 166, 255, 0.4)" }}
+                  >
+                    <div className="skill-card-inner">
+                      <h3 className="skill-category-title">{category.title}</h3>
+                      <div className="skill-tags">
+                        {category.skills.map((skill, idx) => (
+                          <span key={idx} className="skill-tag">{skill}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {activeSkillsTab === 'certs' && (
+            <motion.div
+              className="certs-container"
+              key="certs"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <div className="certs-grid">
+                {certificates.map((cert, index) => (
+                  <motion.div
+                    key={index}
+                    className="cert-card"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    whileHover={{ y: -8, boxShadow: "0 20px 45px rgba(88, 166, 255, 0.25)" }}
+                  >
+                    <div className="cert-image-wrapper">
+                      <img
+                        src={cert.image}
+                        alt={cert.title}
+                        className="cert-image"
+                        loading="lazy"
+                      />
+                      <div className="cert-overlay">
+                        <span className="cert-type-badge">{cert.type}</span>
+                      </div>
+                    </div>
+                    <div className="cert-info">
+                      <div className="cert-header">
+                        <span className="cert-badge-icon">{cert.badge}</span>
+                        <h4 className="cert-title">{cert.title}</h4>
+                      </div>
+                      <p className="cert-issuer">{cert.issuer}</p>
+                      {cert.date && <span className="cert-date">📅 {cert.date}</span>}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+        </div>
       </section>
 
       <section id="projects" className="projects-section">
