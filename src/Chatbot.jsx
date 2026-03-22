@@ -55,7 +55,7 @@ const BookingForm = ({ onComplete }) => {
     const date = formData.get("date");
     const time = formData.get("time");
     
-    formData.append("message", `Name: \${name}\\nEmail: \${email}\\nRequested Date: \${date}\\nRequested Time: \${time}`);
+    formData.append("message", `Name: ${name}\nEmail: ${email}\nRequested Date: ${date}\nRequested Time: ${time}`);
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
@@ -66,7 +66,7 @@ const BookingForm = ({ onComplete }) => {
       if (data.success) {
         setStatus('success');
         setTimeout(() => {
-          onComplete(`Appointment request sent successfully for \${date} at \${time}! Abhishek will confirm with you via email shortly.`);
+          onComplete(`Appointment request sent successfully for ${date} at ${time}! Abhishek will confirm with you via email shortly.`);
         }, 1500);
       } else {
         setStatus('error');
@@ -291,7 +291,7 @@ const Chatbot = () => {
                   initial={{ opacity: 0, y: 15, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.3 }}
-                  className={`chatbot-message-row \${msg.role === 'user' ? 'user-row' : 'ai-row'}`}
+                  className={`chatbot-message-row ${msg.role === 'user' ? 'user-row' : 'ai-row'}`}
                 >
                   {msg.role === 'ai' && (
                     <div className="chatbot-avatar ai-avatar">
@@ -299,13 +299,13 @@ const Chatbot = () => {
                     </div>
                   )}
                   <div className="chatbot-bubble-wrapper">
-                    <div className={`chatbot-message \${msg.role === 'user' ? 'user-bubble' : 'ai-bubble'}`}>
+                    <div className={`chatbot-message ${msg.role === 'user' ? 'user-bubble' : 'ai-bubble'}`}>
                       {formatText(msg.text)}
                     </div>
                     {msg.isBookingForm && (
                       <BookingForm onComplete={handleBookingCompletion} />
                     )}
-                    <span className={`chatbot-timestamp \${msg.role === 'user' ? 'timestamp-right' : 'timestamp-left'}`}>
+                    <span className={`chatbot-timestamp ${msg.role === 'user' ? 'timestamp-right' : 'timestamp-left'}`}>
                       {msg.time}
                     </span>
                   </div>
@@ -360,7 +360,7 @@ const Chatbot = () => {
               />
               <button 
                 type="submit" 
-                className={`chatbot-send-btn \${inputMessage.trim() ? 'active' : ''}`}
+                className={`chatbot-send-btn ${inputMessage.trim() ? 'active' : ''}`}
                 disabled={isLoading || !inputMessage.trim()}
               >
                 <Send size={18} />
@@ -373,7 +373,7 @@ const Chatbot = () => {
       {/* Floating Toggle Button */}
       <motion.button
         onClick={toggleChat}
-        className={`chatbot-toggle-btn \${isOpen ? 'active' : ''}`}
+        className={`chatbot-toggle-btn ${isOpen ? 'active' : ''}`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, y: 50 }}

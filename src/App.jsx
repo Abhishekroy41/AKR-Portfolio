@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mail, Github, Code, User, ExternalLink, Briefcase, Calendar, Award, GraduationCap, Send, MessageCircle, Menu, X, Linkedin, Instagram, ChevronRight, ChevronLeft, Star, UserCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import './index.css';
 
 const skillCategories = [
@@ -37,7 +37,7 @@ const certificates = [
     date: "25 Apr 2024",
     badge: "🎓",
     type: "Certification",
-    image: "/certificates/cert_lit_java.jpg"
+    image: "/certificates/certificate5.png" 
   },
   {
     title: "INVENTRON 2K23 – National Level Hackathon",
@@ -45,7 +45,7 @@ const certificates = [
     date: "27–28 Jan 2023",
     badge: "🏅",
     type: "Participation",
-    image: "/certificates/cert_inventron.jpg"
+    image: "/certificates/certificate2.png"
   },
   {
     title: "Code 4 Odisha – Odisha's Biggest Hackathon",
@@ -53,7 +53,7 @@ const certificates = [
     date: "27–28 Aug 2022",
     badge: "🏅",
     type: "Participation",
-    image: "/certificates/cert_code4odisha.jpg"
+    image: "/certificates/certificate3.png"
   },
   {
     title: "Python Programming",
@@ -61,7 +61,7 @@ const certificates = [
     date: "21 Apr 2025",
     badge: "🐍",
     type: "Completion",
-    image: "/certificates/cert_python.jpg"
+    image: "/certificates/certificate1.png"
   },
   {
     title: "Certificate Course on Artificial Intelligence",
@@ -69,7 +69,7 @@ const certificates = [
     date: "25 Nov 2024",
     badge: "🤖",
     type: "Recognition",
-    image: "/certificates/cert_infosys_ai.jpg"
+    image: "/certificates/certificate4.png"
   }
 ];
 
@@ -235,6 +235,16 @@ const initialReviews = [
   }
 ];
 
+// Animated Interactive Background
+const AnimatedBackground = () => (
+  <div className="animated-bg">
+    <div className="particles-overlay"></div>
+    <div className="glow-blob glow-blob-1"></div>
+    <div className="glow-blob glow-blob-2"></div>
+    <div className="glow-blob glow-blob-3"></div>
+  </div>
+);
+
 function App() {
   const [result, setResult] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -242,6 +252,7 @@ function App() {
   const [newReview, setNewReview] = useState({ name: "", comment: "", rating: 5 });
   const [reviewFormResult, setReviewFormResult] = useState("");
   const [activeSkillsTab, setActiveSkillsTab] = useState('skills');
+  const [selectedCert, setSelectedCert] = useState(null);
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
@@ -302,6 +313,7 @@ function App() {
 
   return (
     <div className="app-container">
+      <AnimatedBackground />
       <nav className="navbar">
         <a href="#home" className="nav-brand" onClick={() => setIsMenuOpen(false)}>
           Abhishek Kumar
@@ -547,83 +559,87 @@ function App() {
 
         {/* --- Tab Content --- */}
         <div className="skills-tab-content">
-          {activeSkillsTab === 'skills' && (
-            <motion.div
-              className="skills-container"
-              key="skills"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="skills-grid">
-                {skillCategories.map((category, index) => (
-                  <motion.div
-                    key={index}
-                    className="skill-card"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.08 }}
-                    whileHover={{ y: -10, boxShadow: "0 10px 30px -10px rgba(88, 166, 255, 0.4)" }}
-                  >
-                    <div className="skill-card-inner">
-                      <h3 className="skill-category-title">{category.title}</h3>
-                      <div className="skill-tags">
-                        {category.skills.map((skill, idx) => (
-                          <span key={idx} className="skill-tag">{skill}</span>
-                        ))}
+          <AnimatePresence mode="wait">
+            {activeSkillsTab === 'certs' ? (
+              <motion.div
+                className="certs-container"
+                key="certs-container"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="certs-grid">
+                  {certificates.map((cert, index) => (
+                    <motion.div
+                      key={index}
+                      className="cert-card"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      <div 
+                        className="cert-image-wrapper"
+                        onClick={() => setSelectedCert(cert)}
+                        style={{ cursor: 'zoom-in' }}
+                      >
+                        <img
+                          src={cert.image}
+                          alt={cert.title}
+                          className="cert-image"
+                          loading="lazy"
+                        />
+                        <div className="cert-overlay">
+                          <span className="cert-type-badge">{cert.type}</span>
+                        </div>
+                        <div className="cert-zoom-hint">
+                          <ExternalLink size={16} /> Click to Enlarge
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {activeSkillsTab === 'certs' && (
-            <motion.div
-              className="certs-container"
-              key="certs"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="certs-grid">
-                {certificates.map((cert, index) => (
-                  <motion.div
-                    key={index}
-                    className="cert-card"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    whileHover={{ y: -8, boxShadow: "0 20px 45px rgba(88, 166, 255, 0.25)" }}
-                  >
-                    <div className="cert-image-wrapper">
-                      <img
-                        src={cert.image}
-                        alt={cert.title}
-                        className="cert-image"
-                        loading="lazy"
-                      />
-                      <div className="cert-overlay">
-                        <span className="cert-type-badge">{cert.type}</span>
+                      <div className="cert-info">
+                        <div className="cert-header">
+                          <span className="cert-badge-icon">{cert.badge}</span>
+                          <h4 className="cert-title">{cert.title}</h4>
+                        </div>
+                        <p className="cert-issuer">{cert.issuer}</p>
+                        {cert.date && <span className="cert-date">📅 {cert.date}</span>}
                       </div>
-                    </div>
-                    <div className="cert-info">
-                      <div className="cert-header">
-                        <span className="cert-badge-icon">{cert.badge}</span>
-                        <h4 className="cert-title">{cert.title}</h4>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                className="skills-container"
+                key="skills-container"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="skills-grid">
+                  {skillCategories.map((category, index) => (
+                    <motion.div
+                      key={index}
+                      className="skill-card"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      <div className="skill-card-inner">
+                        <h3 className="skill-category-title">{category.title}</h3>
+                        <div className="skill-tags">
+                          {category.skills.map((skill, idx) => (
+                            <span key={idx} className="skill-tag">{skill}</span>
+                          ))}
+                        </div>
                       </div>
-                      <p className="cert-issuer">{cert.issuer}</p>
-                      {cert.date && <span className="cert-date">📅 {cert.date}</span>}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
@@ -1001,9 +1017,37 @@ function App() {
         </motion.div>
       </section>
 
-      <footer className="footer">
-        <p>Designed & Built by <span>Abhishek Kumar Roy</span>.</p>
-      </footer>
+
+
+      {/* --- Certificate Modal --- */}
+      <AnimatePresence>
+        {selectedCert && (
+          <motion.div 
+            className="cert-modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedCert(null)}
+          >
+            <motion.div 
+              className="cert-modal-content"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button className="modal-close" onClick={() => setSelectedCert(null)}>
+                <X size={32} />
+              </button>
+              <img src={selectedCert.image} alt={selectedCert.title} />
+              <div className="modal-info">
+                <h3>{selectedCert.title}</h3>
+                <p>{selectedCert.issuer} • {selectedCert.date}</p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
