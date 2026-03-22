@@ -236,14 +236,38 @@ const initialReviews = [
 ];
 
 // Animated Interactive Background
-const AnimatedBackground = () => (
-  <div className="animated-bg">
-    <div className="particles-overlay"></div>
-    <div className="glow-blob glow-blob-1"></div>
-    <div className="glow-blob glow-blob-2"></div>
-    <div className="glow-blob glow-blob-3"></div>
-  </div>
-);
+const AnimatedBackground = () => {
+  const [mousePos, setMousePos] = useState({ x: -500, y: -500 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+      setIsHovering(true);
+    };
+    
+    // Add smooth tracking
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <div className="animated-bg">
+      <div className="particles-overlay"></div>
+      <div className="glow-blob glow-blob-1"></div>
+      <div className="glow-blob glow-blob-2"></div>
+      <div className="glow-blob glow-blob-3"></div>
+      <div 
+        className="cursor-glow" 
+        style={{
+          left: `${mousePos.x}px`,
+          top: `${mousePos.y}px`,
+          opacity: isHovering ? 0.8 : 0,
+        }}
+      ></div>
+    </div>
+  );
+};
 
 function App() {
   const [result, setResult] = useState("");
@@ -348,11 +372,35 @@ function App() {
           </motion.h4>
           <motion.h1
             className="name"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 1 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.06, // fast letter by letter stagger
+                  delayChildren: 0.3
+                }
+              }
+            }}
           >
-            Abhishek Kumar <span>Roy</span>
+            {"Abhishek Kumar Roy".split("").map((char, index) => (
+              char === " " ? (
+                <span key={`space-${index}`}>&nbsp;</span>
+              ) : (
+                <motion.span
+                  key={`char-${index}`}
+                  style={{ display: "inline-block" }}
+                  variants={{
+                    hidden: { opacity: 0, y: 50, scale: 0.5 },
+                    visible: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", bounce: 0.6, duration: 0.8 } }
+                  }}
+                >
+                  {char}
+                </motion.span>
+              )
+            ))}
           </motion.h1>
           <motion.h3
             className="subtitle"
@@ -574,9 +622,10 @@ function App() {
                     <motion.div
                       key={index}
                       className="cert-card"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true, amount: 0.1 }}
+                      transition={{ type: "spring", bounce: 0.5, duration: 0.8, delay: index * 0.1 }}
                     >
                       <div 
                         className="cert-image-wrapper"
@@ -622,9 +671,10 @@ function App() {
                     <motion.div
                       key={index}
                       className="skill-card"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{ type: "spring", bounce: 0.5, duration: 0.8, delay: index * 0.1 }}
                     >
                       <div className="skill-card-inner">
                         <h3 className="skill-category-title">{category.title}</h3>
