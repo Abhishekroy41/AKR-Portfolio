@@ -56,10 +56,10 @@ body {
   width: 100vw;
   height: 100vh;
   background-image: 
-    linear-gradient(rgba(88, 166, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(88, 166, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(88, 166, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(88, 166, 255, 0.035) 1px, transparent 1px);
   background-size: 40px 40px;
-  animation: grid-scroll 30s linear infinite;
+  animation: grid-scroll 30s linear infinite, grid-color 20s ease-in-out infinite alternate;
   pointer-events: none;
 }
 
@@ -75,6 +75,11 @@ body {
   to { background-position: 40px 40px; }
 }
 
+@keyframes grid-color {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(90deg); }
+}
+
 .glow-blob {
   position: absolute;
   filter: blur(120px);
@@ -87,43 +92,43 @@ body {
 .glow-blob-1 {
   width: 45vw;
   height: 45vw;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.45) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.35) 0%, transparent 70%);
   top: -15%;
   left: -15%;
-  animation: tech-blob-1 12s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+  animation: tech-blob-1 15s infinite alternate ease-in-out;
 }
 
 .glow-blob-2 {
   width: 50vw;
   height: 50vw;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.3) 0%, transparent 70%);
   bottom: -20%;
   right: -15%;
-  animation: tech-blob-2 15s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+  animation: tech-blob-2 18s infinite alternate ease-in-out;
 }
 
 .glow-blob-3 {
-  width: 35vw;
-  height: 35vw;
+  width: 40vw;
+  height: 40vw;
   background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, transparent 70%);
   top: 30%;
   left: 30%;
-  animation: tech-blob-3 18s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+  animation: tech-blob-3 20s infinite alternate ease-in-out;
 }
 
 @keyframes tech-blob-1 {
-  0% { transform: scale(1) translate(0, 0); opacity: 0.2; }
-  100% { transform: scale(1.15) translate(8%, 10%); opacity: 0.4; }
+  0% { transform: scale(1) translate(0, 0); opacity: 0.3; filter: blur(120px) hue-rotate(0deg); }
+  100% { transform: scale(1.15) translate(8%, 10%); opacity: 0.55; filter: blur(120px) hue-rotate(60deg); }
 }
 
 @keyframes tech-blob-2 {
-  0% { transform: scale(1) translate(0, 0); opacity: 0.2; }
-  100% { transform: scale(1.2) translate(-8%, -10%); opacity: 0.4; }
+  0% { transform: scale(1) translate(0, 0); opacity: 0.3; filter: blur(120px) hue-rotate(0deg); }
+  100% { transform: scale(1.2) translate(-8%, -10%); opacity: 0.55; filter: blur(120px) hue-rotate(-60deg); }
 }
 
 @keyframes tech-blob-3 {
-  0% { transform: scale(0.9) translate(0, 0); opacity: 0.15; }
-  100% { transform: scale(1.3) translate(15%, 15%); opacity: 0.35; }
+  0% { transform: scale(0.9) translate(0, 0); opacity: 0.2; filter: blur(120px) hue-rotate(0deg); }
+  100% { transform: scale(1.3) translate(15%, 15%); opacity: 0.45; filter: blur(120px) hue-rotate(90deg); }
 }
 
 /* Navbar (Floating Glassmorphism Pill) */
@@ -232,11 +237,11 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 120px 8% 0;
-  background-color: #050810;
+  background-color: transparent;
   background-image:
-    radial-gradient(circle at top right, rgba(88, 166, 255, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(rgba(88, 166, 255, 0.15) 1px, transparent 1px);
+    radial-gradient(circle at top right, rgba(88, 166, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(rgba(88, 166, 255, 0.05) 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 30px 30px;
   width: 100%;
   position: relative;
@@ -250,7 +255,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, transparent 30%, #050810 100%);
+  background: radial-gradient(circle at center, transparent 30%, rgba(3, 7, 18, 0.6) 100%);
   pointer-events: none;
 }
 
@@ -632,7 +637,7 @@ body {
   background:
     radial-gradient(circle at bottom right, rgba(88, 166, 255, 0.1) 0%, transparent 50%),
     radial-gradient(circle at top left, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
-    linear-gradient(to bottom, var(--bg-color) 0%, #0a0d14 100%);
+    linear-gradient(to bottom, transparent 0%, rgba(10, 13, 20, 0.6) 100%);
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -1043,7 +1048,7 @@ body {
 /* Skills Section */
 .skills-section {
   padding: 75px 5%;
-  background-color: var(--bg-color);
+  background-color: transparent;
 }
 
 /* Portfolio Showcase Header */
@@ -1382,8 +1387,8 @@ body {
   border-radius: 16px;
   backdrop-filter: blur(10px);
   overflow: hidden;
-  transition: all 0.3s ease;
-  cursor: default;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2), box-shadow 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+  cursor: pointer;
 }
 
 .skill-card-inner {
@@ -1420,8 +1425,10 @@ body {
 }
 
 .skill-card:hover {
-  background: rgba(88, 166, 255, 0.05);
-  border-color: rgba(88, 166, 255, 0.3);
+  background: rgba(88, 166, 255, 0.08);
+  border-color: rgba(88, 166, 255, 0.5);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px -5px rgba(88, 166, 255, 0.25), inset 0 0 20px rgba(88, 166, 255, 0.1);
 }
 
 .skill-tag:hover {
@@ -1434,7 +1441,7 @@ body {
 /* Projects Section */
 .projects-section {
   padding: 75px 5%;
-  background-color: var(--bg-color);
+  background-color: transparent;
   /* Matches the dark background */
 }
 
@@ -1560,7 +1567,7 @@ body {
 /* Experience Section (Timeline) */
 .experience-section {
   padding: 75px 5%;
-  background-color: var(--bg-color);
+  background-color: transparent;
 }
 
 .experience-container {
@@ -3169,4 +3176,24 @@ html, body, .app-container {
   transform: translate(-50%, -50%);
   transition: opacity 0.3s ease;
   mix-blend-mode: screen;
+}
+
+/* Explore Page Specific Static Background */
+.explore-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -100;
+  background-size: cover;
+  background-position: center 15%;
+  background-repeat: no-repeat;
+}
+
+.explore-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 17, 23, 0.65);
+  backdrop-filter: blur(2px);
 }

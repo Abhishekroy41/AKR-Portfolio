@@ -4,7 +4,6 @@ import { ChevronLeft, Menu, X, User, CalendarDays, Clock, CheckCircle, Zap, Refr
 import { Link } from 'react-router-dom';
 import './index.css';
 
-
 function Explore() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
@@ -12,21 +11,13 @@ function Explore() {
     const [bookingStatus, setBookingStatus] = useState("");
     const [showSkills, setShowSkills] = useState(false);
 
-    const skillsLeft = [
-        { icon: '🎨', title: 'Logo design' },
-        { icon: '🖼️', title: 'Poster design' },
-        { icon: '🏷️', title: 'Banner design' },
-        { icon: '📄', title: 'Template design' },
-        { icon: '📰', title: 'Broucher design' },
-        { icon: '📱', title: 'Social media post design' }
-    ];
-
-    const skillsRight = [
-        { icon: '🎟️', title: 'Pass design' },
-        { icon: '🎬', title: 'Video editing' },
-        { icon: '🛒', title: 'Amazon A+ listing' },
-        { icon: '🏬', title: 'Brand store page design' },
-        { icon: '📖', title: 'Brand story design' }
+    const skillsList = [
+        { icon: '📊', title: 'Interactive Dashboards' },
+        { icon: '🐍', title: 'Python Analytics' },
+        { icon: '🛠️', title: 'SQL Database Mgt' },
+        { icon: '💡', title: 'Actionable Insights' },
+        { icon: '🧹', title: 'Data Cleaning & ETL' },
+        { icon: '🤖', title: 'Predictive Modeling' }
     ];
 
     const handleBooking = (e) => {
@@ -41,6 +32,9 @@ function Explore() {
 
     return (
         <div className="app-container">
+            <div className="explore-bg" style={{ backgroundImage: "url('/explore-more-bg.jpg')" }}>
+                <div className="explore-overlay"></div>
+            </div>
             <nav className="navbar">
                 <Link to="/" className="nav-brand" onClick={() => setIsMenuOpen(false)}>
                     Abhishek Kumar
@@ -77,7 +71,7 @@ function Explore() {
                         transition={{ duration: 0.5, delay: 0.3 }}
                         style={{ justifyContent: 'center', marginBottom: '1rem', marginTop: '120px' }}
                     >
-                        <span className="typewriter">Any Task. All Tasks. One Flat Fee.</span>
+                        <span className="typewriter">Data to Insights. Insights to Action.</span>
                     </motion.h4>
 
                     <motion.h1
@@ -107,15 +101,15 @@ function Explore() {
                                 }}
                                 transition={{ duration: 0.5, ease: "easeOut" }}
                             >
-                                <div className="ad-badge">PRO PLAN</div>
-                                <h3 className="ad-title">Scale Your Brand</h3>
-                                <p className="ad-description">Unlimited design requests. Fast delivery. One flat fee.</p>
+                                <div className="ad-badge">DATA CONSULTING</div>
+                                <h3 className="ad-title">Data-Driven Decisions</h3>
+                                <p className="ad-description">Transform raw data into strategic insights. Dashboards, models, and deep analytics.</p>
                                 <ul className="ad-features">
-                                    <li><CheckCircle size={16} /> Pause or cancel anytime</li>
-                                    <li><CheckCircle size={16} /> Unlimited revisions</li>
-                                    <li><CheckCircle size={16} /> Top-tier quality</li>
+                                    <li><CheckCircle size={16} /> Actionable Business Insights</li>
+                                    <li><CheckCircle size={16} /> Advanced Predictive Modeling</li>
+                                    <li><CheckCircle size={16} /> Real-time Interactive Dashboards</li>
                                 </ul>
-                                <button className="primary-btn ad-btn">Subscribe Now</button>
+                                <button className="primary-btn ad-btn">Book Consultation</button>
                             </motion.div>
                         </div>
 
@@ -132,7 +126,7 @@ function Explore() {
                         </div>
 
                         <div className="network-col right-col" style={{ pointerEvents: showSkills ? "auto" : "none" }}>
-                            {skillsRight.map((skill, index) => (
+                            {skillsList.map((skill, index) => (
                                 <motion.div
                                     key={index}
                                     className="skill-node glass-node"
@@ -166,18 +160,18 @@ function Explore() {
                     <div className="process-grid">
                         <div className="process-card">
                             <div className="process-icon-wrapper"><MonitorPlay size={28} /></div>
-                            <h3>1. Subscribe & Request</h3>
-                            <p>Subscribe to a plan & request as many designs as you'd like on your dedicated Trello board.</p>
+                            <h3>1. Consultation & Strategy</h3>
+                            <p>We'll discuss your data needs, identify key metrics, and formulate a targeted analytics strategy.</p>
                         </div>
                         <div className="process-card">
                             <div className="process-icon-wrapper"><Zap size={28} /></div>
-                            <h3>2. Fast Turnaround</h3>
-                            <p>Receive your design within a few business days on average, Monday to Friday.</p>
+                            <h3>2. Processing & Analysis</h3>
+                            <p>I will clean, process, and analyze your datasets to extract meaningful, actionable insights.</p>
                         </div>
                         <div className="process-card">
                             <div className="process-icon-wrapper"><RefreshCw size={28} /></div>
-                            <h3>3. Revise & Polish</h3>
-                            <p>We'll revise the designs until you're 100% satisfied. No limits, no compromises.</p>
+                            <h3>3. Delivery & Visualization</h3>
+                            <p>You receive interactive dashboards and comprehensive reports with strategic recommendations.</p>
                         </div>
                     </div>
                 </motion.div>
@@ -197,29 +191,29 @@ function Explore() {
                         <div className="benefit-item">
                             <Shield className="benefit-icon" />
                             <div>
-                                <h4>Top-notch quality</h4>
-                                <p>Insane design quality at your fingertips whenever you need it.</p>
+                                <h4>Precision & Accuracy</h4>
+                                <p>Rigorous data cleaning and validation to ensure the highest quality insights.</p>
                             </div>
                         </div>
                         <div className="benefit-item">
                             <RefreshCw className="benefit-icon" />
                             <div>
-                                <h4>Flexible and scalable</h4>
-                                <p>Scale up or down as needed, and pause or cancel at anytime.</p>
+                                <h4>Scalable Solutions</h4>
+                                <p>From single ad-hoc reports to robust automated data pipelines.</p>
                             </div>
                         </div>
                         <div className="benefit-item">
                             <Zap className="benefit-icon" />
                             <div>
-                                <h4>Lightning fast delivery</h4>
-                                <p>Get your designs one at a time in just a few days on average.</p>
+                                <h4>Timely Delivery</h4>
+                                <p>Rapid turnaround times on critical reports and analyses to keep you moving fast.</p>
                             </div>
                         </div>
                         <div className="benefit-item">
                             <Award className="benefit-icon" />
                             <div>
-                                <h4>Unique and all yours</h4>
-                                <p>Each of your designs is made especially for you and is 100% yours.</p>
+                                <h4>Actionable Insights</h4>
+                                <p>Providing clear, data-driven recommendations tailored specifically to your business goals.</p>
                             </div>
                         </div>
                     </div>

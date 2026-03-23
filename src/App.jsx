@@ -236,7 +236,7 @@ const initialReviews = [
 ];
 
 // Animated Interactive Background
-const AnimatedBackground = () => {
+export const AnimatedBackground = () => {
   const [mousePos, setMousePos] = useState({ x: -500, y: -500 });
   const [isHovering, setIsHovering] = useState(false);
 
