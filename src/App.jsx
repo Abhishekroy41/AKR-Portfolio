@@ -430,7 +430,12 @@ function App() {
           >
             <a href="#projects" className="primary-btn">View my work</a>
             <a href="/DA_CV.pdf" target="_blank" rel="noreferrer" className="secondary-btn">View resume</a>
-            <a href="/explore" className="secondary-btn">Explore more</a>
+            <div className="explore-wrapper">
+              <a href="/explore" className="secondary-btn highlight-explore-btn">Explore more</a>
+              <div className="explore-badge">
+                Click here to explore ✨
+              </div>
+            </div>
           </motion.div>
           <motion.div
             className="social-links"
