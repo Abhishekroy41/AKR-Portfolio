@@ -9,7 +9,6 @@ function Explore() {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
     const [selectedTime, setSelectedTime] = useState("");
     const [bookingStatus, setBookingStatus] = useState("");
-    const [showSkills, setShowSkills] = useState(false);
 
     const skillsList = [
         { icon: '📊', title: 'Interactive Dashboards' },
@@ -66,9 +65,9 @@ function Explore() {
                 >
                     <motion.h4
                         className="greeting"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
+                        initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                         style={{ justifyContent: 'center', marginBottom: '1rem', marginTop: '120px' }}
                     >
                         <span className="typewriter">Data to Insights. Insights to Action.</span>
@@ -76,70 +75,138 @@ function Explore() {
 
                     <motion.h1
                         className="name"
-                        style={{ fontSize: '4.5rem', marginBottom: '1.5rem', textAlign: 'center', lineHeight: 1.1 }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
+                        style={{ fontSize: '4.5rem', marginBottom: '1.5rem', textAlign: 'center', lineHeight: 1.1, position: 'relative' }}
+                        initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
                     >
-                        Let's <span>Connect</span> For...
+                        Let's <motion.span 
+                            animate={{ color: ["#fff", "var(--accent-color)", "#fff"] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        >Connect</motion.span> For...
+                        <motion.div 
+                            style={{ position: 'absolute', right: '10%', top: '-20px', width: '60px', height: '60px', border: '2px dashed rgba(88, 166, 255, 0.4)', borderRadius: '50%', pointerEvents: 'none' }}
+                            animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+                            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                        />
                     </motion.h1>
 
                     <motion.div
-                        className="skills-network-container"
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.7 }}
+                        transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                        style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+                            gap: '3rem',
+                            marginTop: '4rem',
+                            alignItems: 'stretch',
+                            position: 'relative'
+                        }}
                     >
-                        <div className="network-col left-col" style={{ pointerEvents: showSkills ? "auto" : "none" }}>
-                            <motion.div
-                                className="ad-card"
-                                initial={{ opacity: 0, x: 50, scale: 0.9 }}
-                                animate={{
-                                    opacity: showSkills ? 1 : 0,
-                                    x: showSkills ? 0 : 50,
-                                    scale: showSkills ? 1 : 0.9
-                                }}
-                                transition={{ duration: 0.5, ease: "easeOut" }}
+                        {/* Trendy Floating Decorative Badge */}
+                        <motion.div
+                            style={{ position: 'absolute', top: '-45px', left: '15px', background: 'rgba(22, 27, 34, 0.7)', backdropFilter: 'blur(16px)', border: '1px solid rgba(88, 166, 255, 0.2)', padding: '0.6rem 1.2rem', borderRadius: '30px', display: 'inline-flex', alignItems: 'center', gap: '0.6rem', color: '#fff', fontSize: '0.95rem', fontWeight: '600', zIndex: 10, boxShadow: '0 10px 25px rgba(0,0,0,0.3)' }}
+                            animate={{ y: [0, -12, 0] }}
+                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                            <Star size={16} color="var(--accent-color)" /> Professional Data Services
+                        </motion.div>
+                        {/* Premium Consulting Card (Replaced AI Avatar) */}
+                        <div style={{
+                            background: 'rgba(22, 27, 34, 0.65)',
+                            border: '1px solid rgba(88, 166, 255, 0.2)',
+                            borderRadius: '24px',
+                            padding: '3rem 2.5rem',
+                            position: 'relative',
+                            overflow: 'hidden',
+                            backdropFilter: 'blur(16px)',
+                            boxShadow: '0 20px 40px rgba(0,0,0,0.3), inset 0 0 20px rgba(88, 166, 255, 0.05)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center'
+                        }}>
+                            <div style={{
+                                position: 'absolute', top: '-50px', right: '-50px', width: '200px', height: '200px', background: 'var(--accent-color)', filter: 'blur(90px)', opacity: '0.15', borderRadius: '50%'
+                            }}></div>
+                            
+                            <div style={{ display: 'inline-block', padding: '0.5rem 1.2rem', background: 'rgba(88, 166, 255, 0.1)', color: 'var(--accent-color)', borderRadius: '30px', fontSize: '0.85rem', fontWeight: '800', marginBottom: '2rem', letterSpacing: '1px', alignSelf: 'flex-start', border: '1px solid rgba(88, 166, 255, 0.2)' }}>
+                                DATA CONSULTING
+                            </div>
+                            <h3 style={{ fontSize: '2.4rem', marginBottom: '1.2rem', color: '#fff', lineHeight: '1.2', fontWeight: '800' }}>Data-Driven Decisions</h3>
+                            <p style={{ color: '#a3b3cc', fontSize: '1.1rem', marginBottom: '2.5rem', lineHeight: '1.6' }}>
+                                Transform raw data into strategic insights. Dashboards, models, and deep analytics built to elevate your business.
+                            </p>
+                            
+                            <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '1.2rem', marginBottom: '3rem', flex: 1 }}>
+                                {[
+                                    'Actionable Business Insights',
+                                    'Advanced Predictive Modeling',
+                                    'Real-time Interactive Dashboards'
+                                ].map((feature, idx) => (
+                                    <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: '#c9d1d9', fontSize: '1.05rem', fontWeight: '500' }}>
+                                        <div style={{ background: 'rgba(88, 166, 255, 0.1)', padding: '6px', borderRadius: '50%', display: 'flex', color: 'var(--accent-color)', border: '1px solid rgba(88, 166, 255, 0.2)' }}>
+                                            <CheckCircle size={16} />
+                                        </div>
+                                        {feature}
+                                    </li>
+                                ))}
+                            </ul>
+                            
+                            <button 
+                                className="primary-btn" 
+                                onClick={() => document.getElementById('free-trial')?.scrollIntoView({ behavior: 'smooth' })}
+                                style={{ width: '100%', fontSize: '1.1rem', padding: '1rem', display: 'flex', justifyContent: 'center', fontWeight: '700', letterSpacing: '0.5px' }}
                             >
-                                <div className="ad-badge">DATA CONSULTING</div>
-                                <h3 className="ad-title">Data-Driven Decisions</h3>
-                                <p className="ad-description">Transform raw data into strategic insights. Dashboards, models, and deep analytics.</p>
-                                <ul className="ad-features">
-                                    <li><CheckCircle size={16} /> Actionable Business Insights</li>
-                                    <li><CheckCircle size={16} /> Advanced Predictive Modeling</li>
-                                    <li><CheckCircle size={16} /> Real-time Interactive Dashboards</li>
-                                </ul>
-                                <button className="primary-btn ad-btn">Book Consultation</button>
-                            </motion.div>
+                                Book Consultation
+                            </button>
                         </div>
 
-                        <div className="network-col center-col">
-                            <motion.div
-                                className="center-character"
-                                onMouseEnter={() => setShowSkills(true)}
-                                onMouseLeave={() => setShowSkills(false)}
-                                style={{ cursor: 'pointer' }}
-                                whileHover={{ scale: 1.05 }}
-                            >
-                                <img src="/ai_tech_avatar.png" alt="AI Tech Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
-                            </motion.div>
-                        </div>
-
-                        <div className="network-col right-col" style={{ pointerEvents: showSkills ? "auto" : "none" }}>
+                        {/* Interactive Skills Grid */}
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                            gap: '1.5rem',
+                            alignContent: 'center'
+                        }}>
                             {skillsList.map((skill, index) => (
                                 <motion.div
                                     key={index}
-                                    className="skill-node glass-node"
-                                    initial={{ opacity: 0, x: -50, scale: 0.9 }}
-                                    animate={{
-                                        opacity: showSkills ? 1 : 0,
-                                        x: showSkills ? 0 : -50,
-                                        scale: showSkills ? 1 : 0.9
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.4, delay: 0.8 + (index * 0.1) }}
+                                    whileHover={{ y: -5, background: 'rgba(22, 27, 34, 0.8)', borderColor: 'rgba(88, 166, 255, 0.4)', boxShadow: '0 10px 30px rgba(88, 166, 255, 0.15)' }}
+                                    style={{
+                                        background: 'rgba(22, 27, 34, 0.4)',
+                                        border: '1px solid rgba(255, 255, 255, 0.08)',
+                                        borderRadius: '20px',
+                                        padding: '1.8rem 1.5rem',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'flex-start',
+                                        gap: '1rem',
+                                        backdropFilter: 'blur(10px)',
+                                        transition: 'all 0.3s ease',
+                                        cursor: 'default',
+                                        height: '100%'
                                     }}
-                                    transition={{ duration: 0.4, delay: showSkills ? index * 0.08 : 0, ease: "easeOut" }}
                                 >
-                                    <span className="skill-icon">{skill.icon}</span>
-                                    {skill.title}
+                                    <div style={{
+                                        fontSize: '2rem',
+                                        background: 'rgba(255, 255, 255, 0.05)',
+                                        width: '56px',
+                                        height: '56px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        borderRadius: '16px',
+                                        border: '1px solid rgba(255, 255, 255, 0.1)'
+                                    }}>
+                                        {skill.icon}
+                                    </div>
+                                    <h4 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: '600', lineHeight: '1.4' }}>
+                                        {skill.title}
+                                    </h4>
                                 </motion.div>
                             ))}
                         </div>
@@ -221,6 +288,7 @@ function Explore() {
 
                 {/* --- Free Trial Section --- */}
                 <motion.div
+                    id="free-trial"
                     className="free-trial-section"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
