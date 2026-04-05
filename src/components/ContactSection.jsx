@@ -13,10 +13,17 @@ const ContactSection = () => {
     // Web3Forms Access Key
     formData.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
 
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: json
       });
 
       const data = await response.json();

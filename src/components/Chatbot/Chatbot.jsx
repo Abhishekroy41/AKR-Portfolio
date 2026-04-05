@@ -57,10 +57,17 @@ const BookingForm = ({ onComplete }) => {
     
     formData.append("message", `Name: ${name}\nEmail: ${email}\nRequested Date: ${date}\nRequested Time: ${time}`);
 
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: json
       });
       const data = await res.json();
       if (data.success) {
