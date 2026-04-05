@@ -259,6 +259,22 @@ body {
   pointer-events: none;
 }
 
+.hero-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/home_bg_image/my_bg_img1.jpeg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.25; /* Professional low-opacity overlay so you can clearly see it */
+  z-index: 1; /* Ensures it is on top of the plain dark background but below text (text has z-index 2) */
+  pointer-events: none;
+  /* Adds a professional gradient fade at the bottom so it seamlessly transitions into the next section */
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+}
+
 .hero-content {
   width: 100%;
   max-width: 650px;
