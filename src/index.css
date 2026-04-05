@@ -263,14 +263,13 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/home_bg_image/my_bg_img1.jpeg');
+  background-image: url('/home_bg_image/ai_portfolio_bg.png');
   background-size: cover; /* Back to covering the full background */
-  background-position: 20% 30%; /* Shifted position from 35% to 20% to slide the flipped image right */
+  background-position: center; /* Perfectly centered AI portrait */
   background-repeat: no-repeat;
-  opacity: 0.20;
+  opacity: 0.20; /* Faint cyberpunk glow */
   z-index: 1;
   pointer-events: none;
-  transform: scaleX(-1); /* Flips the background logically */
   -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
