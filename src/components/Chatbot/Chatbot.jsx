@@ -46,7 +46,7 @@ const BookingForm = ({ onComplete }) => {
     e.preventDefault();
     setStatus('submitting');
     const formData = new FormData(e.target);
-    formData.append("access_key", "ba6e9968-78ea-45e4-a282-2ddb9425c2d3");
+    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
     formData.append("subject", "New Appointment Request from Portfolio Chatbot");
 
     // Format the email message body properly for Web3Forms
