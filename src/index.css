@@ -264,33 +264,37 @@ body {
   position: absolute;
   inset: 0;
   background-image: url('/home_bg_image/ai_portfolio_bg.png');
-  background-size: max(80vw, 900px) auto; /* Limits exponential height scaling on landscape screens */
-  background-position: center top; /* Anchors the portrait to the top so the face is proudly visible instead of cut off */
+  background-size: max(60vw, 750px) auto; /* Adjusted to zoom out beautifully and fit more natively in the viewport */
+  background-position: center top; 
   background-repeat: no-repeat;
-  opacity: 0.25; 
+  opacity: 0.12; /* Kept very subtle to match the primary image on the right */
   z-index: 1;
   pointer-events: none;
-  /* Cinematic radial mask perfectly blends the square portrait into the widescreen layout */
-  -webkit-mask-image: radial-gradient(ellipse at center 40%, black 30%, transparent 75%);
-  mask-image: radial-gradient(ellipse at center 40%, black 30%, transparent 75%);
+  transform: scaleX(-1); /* Flips the background logically to contrast the front image */
+  -webkit-mask-image: radial-gradient(ellipse at center 40%, black 40%, transparent 70%);
+  mask-image: radial-gradient(ellipse at center 40%, black 40%, transparent 70%);
 }
 
-/* Responsive adjustments for phones and tablets to keep the face visible */
+/* Responsive adjustments for phones and tablets to keep the background face visible smoothly */
 @media (max-width: 1024px) {
   .hero-section::after {
     background-position: center top; 
-    background-size: 120vw auto; /* Width-proportional scaling prevents height-based giant zoom */
-    opacity: 0.15;
+    background-size: 120vw auto; 
+    opacity: 0.10;
   }
 }
 
 @media (max-width: 600px) {
   .hero-section::after {
     background-position: center top; 
-    background-size: 150vw auto; /* Fits the phone proportionally without getting stretched out vertically */
-    opacity: 0.12;
+    background-size: 150vw auto; 
+    opacity: 0.08; 
   }
 }
+
+
+
+
 
 
 

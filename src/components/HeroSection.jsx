@@ -103,13 +103,15 @@ const HeroSection = () => {
 
 
 
+
+
       <motion.div
         className="hero-image-container"
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
       >
-        <img src="/hero_data_analyst.png" alt="Data Analyst Illustration" className="hero-illustration" />
+        <img src="/home_bg_image/ai_portfolio_bg.png" alt="AI Generated Portrait" className="hero-illustration" />
       </motion.div>
 
       <div className="hero-glow"></div>
