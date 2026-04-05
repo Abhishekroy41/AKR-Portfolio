@@ -275,6 +275,23 @@ body {
   mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
 
+/* Responsive adjustments for phones and tablets to keep the face visible */
+@media (max-width: 1024px) {
+  .hero-section::after {
+    background-position: center top; 
+    background-size: 120vw auto; /* Width-proportional scaling prevents height-based giant zoom */
+    opacity: 0.15;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-section::after {
+    background-position: center top; 
+    background-size: 150vw auto; /* Fits the phone proportionally without getting stretched out vertically */
+    opacity: 0.12;
+  }
+}
+
 
 
 .hero-content {
