@@ -264,16 +264,18 @@ body {
   position: absolute;
   inset: 0;
   background-image: url('/home_bg_image/my_bg_img1.jpeg');
-  background-size: max(60vw, 750px) auto; /* Perfect professional scaling so the face isn't uncomfortably giant */
-  background-position: center 60%; /* Pushes the face reliably lower into the center view as requested */
+  background-size: cover; /* Back to covering the full background */
+  background-position: 20% 30%; /* Shifted position from 35% to 20% to slide the flipped image right */
   background-repeat: no-repeat;
-  opacity: 0.20; /* Perfect cinematic visibility */
+  opacity: 0.20;
   z-index: 1;
   pointer-events: none;
-  /* Cinematic radial fade so the face softly vanishes into the dark background with zero harsh lines */
-  -webkit-mask-image: radial-gradient(ellipse at center 55%, black 20%, transparent 70%);
-  mask-image: radial-gradient(ellipse at center 55%, black 20%, transparent 70%);
+  transform: scaleX(-1); /* Flips the background logically */
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
+
+
 
 .hero-content {
   width: 100%;
@@ -627,6 +629,14 @@ body {
 
 .hero-illustration:hover {
   transform: scale(1.15);
+}
+
+.profile-flip {
+  transform: scaleX(-1);
+}
+
+.profile-flip:hover {
+  transform: scaleX(-1) scale(1.15);
 }
 
 @keyframes image-glow {

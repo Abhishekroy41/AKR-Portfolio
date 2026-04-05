@@ -101,6 +101,8 @@ const HeroSection = () => {
         </motion.div>
       </motion.div>
 
+
+
       <motion.div
         className="hero-image-container"
         initial={{ opacity: 0, x: 50 }}
