@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, Menu, X, User, CalendarDays, Clock, CheckCircle, Zap, RefreshCw, MonitorPlay, Shield, Star, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import './index.css';
+import '../../index.css';
 
 function Explore() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
