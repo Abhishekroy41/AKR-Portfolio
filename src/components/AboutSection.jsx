@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { ChevronRight, ChevronLeft, User, Database, Terminal, Briefcase, MapPin, Award, Calendar } from 'lucide-react';
 import { ImageSlider } from './ImageSlider';
 import { iterImages, mlritImages } from '../data/portfolioData';
 
@@ -17,19 +17,46 @@ const AboutSection = () => {
               <div className="about-card-inner-original">
 
                 {/* TEXT LEFT */}
-                <div className="about-card-body-original">
-                  <p className="about-text">
-                    Hello! I'm Abhishek Kumar Roy, a Computer Science Engineering graduate specializing in Artificial Intelligence and Machine Learning with a strong interest in Data Analysis and Data-Driven Decision Making. I enjoy working with data to uncover insights, identify trends, and transform raw information into meaningful visualizations.
-                  </p>
-                  <p className="about-text">
-                    I have experience working with Python, SQL, Excel, and Data Visualization tools to analyze datasets and present insights effectively. I am passionate about solving real-world problems using data and continuously improving my analytical and problem-solving skills.
-                  </p>
-                  <p className="about-text">
-                    Along with data analytics, I have also developed technical projects such as a MERN Stack Blog Application, a Portfolio Website, and a Spotify Clone using HTML and CSS, which helped me strengthen my development and problem-solving abilities.
-                  </p>
-                  <p className="about-text">
-                    I am currently seeking opportunities as a Data Analyst where I can apply my analytical skills, work with real datasets, and contribute to data-driven business solutions.
-                  </p>
+                <div className="about-card-body-improved">
+                  <div className="about-info-block">
+                    <div className="about-icon-wrapper"><User className="about-icon" /></div>
+                    <div className="about-info-content">
+                      <h3 className="about-info-title">Who I Am</h3>
+                      <p className="about-info-text">
+                        A Computer Science Engineering graduate specializing in AI and Machine Learning. I have a strong passion for Data Analysis and Data-Driven Decision Making.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="about-info-block">
+                    <div className="about-icon-wrapper"><Database className="about-icon" /></div>
+                    <div className="about-info-content">
+                      <h3 className="about-info-title">What I Do</h3>
+                      <p className="about-info-text">
+                        I analyze datasets, uncover insights, and transform raw data into meaningful visualizations using Python, SQL, Excel, and advanced BI tools.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="about-info-block">
+                    <div className="about-icon-wrapper"><Terminal className="about-icon" /></div>
+                    <div className="about-info-content">
+                      <h3 className="about-info-title">Development Experience</h3>
+                      <p className="about-info-text">
+                        Alongside analytics, I build technical projects like MERN Stack Applications and interactive UIs which strengthen my overall problem-solving abilities.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="about-info-block">
+                    <div className="about-icon-wrapper"><Briefcase className="about-icon" /></div>
+                    <div className="about-info-content">
+                      <h3 className="about-info-title">Career Goals</h3>
+                      <p className="about-info-text">
+                        Currently seeking opportunities as a Data Analyst to apply my analytical capabilities, work with real-world complexities, and drive business growth.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* IMAGE RIGHT */}
@@ -65,35 +92,41 @@ const AboutSection = () => {
 
               <h2 className="carousel-pane-title text-center" style={{ marginBottom: "3rem" }}>My <span>Journey</span></h2>
 
-              <div className="journey-subsections">
+              <div className="journey-bento-grid">
                 {/* ITER HACKATHON */}
-                <div className="journey-subsection">
-                  <div className="journey-header">
-                    <span className="premium-badge">Hackathon</span>
-                    <h3 className="carousel-pane-title-small">ITER Odisha Hackathon</h3>
-                    <p>I participated in the ITER Odisha Hackathon where I worked on innovative ideas and received a participation certificate.</p>
+                <div className="bento-card premium-hover">
+                  <div className="bento-content">
+                    <div className="badge-row">
+                      <span className="premium-badge bento-badge"><Award size={14} /> Hackathon</span>
+                      <span className="timeline-date"><Calendar size={14}/> 2023</span>
+                    </div>
+                    <h3 className="bento-title">ITER Odisha Hackathon</h3>
+                    <div className="location-row">
+                      <MapPin size={16} /> <span className="location-text">Bhubaneswar, Odisha</span>
+                    </div>
+                    <p className="journey-desc">Participated in the high-stakes ITER Hackathon, brainstorming innovative tech solutions and collaborating under pressure.</p>
                   </div>
-                  <ImageSlider images={iterImages} />
+                  <div className="bento-image-wrapper">
+                    <ImageSlider images={iterImages} />
+                  </div>
                 </div>
 
                 {/* MLRIT HACKATHON */}
-                <div className="journey-subsection">
-                  <div className="journey-header">
-                    <span className="premium-badge">Hackathon</span>
-                    <h3 className="carousel-pane-title-small">MLRIT Hyderabad Hackathon</h3>
-                    <p>I participated in the MLRIT Hyderabad Hackathon where I collaborated with other developers and built creative solutions.</p>
+                <div className="bento-card premium-hover">
+                  <div className="bento-content">
+                    <div className="badge-row">
+                      <span className="premium-badge bento-badge"><Award size={14} /> Hackathon</span>
+                      <span className="timeline-date"><Calendar size={14}/> 2024</span>
+                    </div>
+                    <h3 className="bento-title">MLRIT Hackathon</h3>
+                    <div className="location-row">
+                      <MapPin size={16} /> <span className="location-text">Hyderabad, Telangana</span>
+                    </div>
+                    <p className="journey-desc">Collaborated with a dynamic team to build creative, data-driven solutions during an intense 24-hour coding sprint.</p>
                   </div>
-                  <ImageSlider images={mlritImages} />
-                </div>
-
-                {/* FUTURE HACKATHON */}
-                <div className="journey-subsection">
-                  <div className="journey-header">
-                    <span className="premium-badge future">Upcoming</span>
-                    <h3 className="carousel-pane-title-small">Future Hackathon</h3>
-                    <p>An empty block reserved for my upcoming participation in future hackathons.</p>
+                  <div className="bento-image-wrapper">
+                    <ImageSlider images={mlritImages} />
                   </div>
-                  <ImageSlider images={[]} />
                 </div>
               </div>
 
