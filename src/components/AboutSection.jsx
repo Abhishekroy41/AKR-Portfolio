@@ -23,7 +23,7 @@ const AboutSection = () => {
                     <div className="about-info-content">
                       <h3 className="about-info-title">Who I Am</h3>
                       <p className="about-info-text">
-                        A Computer Science Engineering graduate specializing in AI and Machine Learning. I have a strong passion for Data Analysis and Data-Driven Decision Making.
+                        A Web Developer, Automation Engineer, and Data Analyst with a background in Computer Science (AI & ML). I specialize in building, automating, and analyzing to drive technical and business success.
                       </p>
                     </div>
                   </div>
@@ -33,7 +33,7 @@ const AboutSection = () => {
                     <div className="about-info-content">
                       <h3 className="about-info-title">What I Do</h3>
                       <p className="about-info-text">
-                        I analyze datasets, uncover insights, and transform raw data into meaningful visualizations using Python, SQL, Excel, and advanced BI tools.
+                        I design automation workflows using n8n and APIs, develop interactive web applications, monitor server health, and extract strategic insights from data using Python, SQL, and Power BI.
                       </p>
                     </div>
                   </div>
@@ -41,9 +41,9 @@ const AboutSection = () => {
                   <div className="about-info-block">
                     <div className="about-icon-wrapper"><Terminal className="about-icon" /></div>
                     <div className="about-info-content">
-                      <h3 className="about-info-title">Development Experience</h3>
+                      <h3 className="about-info-title">Technical Expertise</h3>
                       <p className="about-info-text">
-                        Alongside analytics, I build technical projects like MERN Stack Applications and interactive UIs which strengthen my overall problem-solving abilities.
+                        My experience spans across full-stack web development, seamless third-party API integrations, robust deployment monitoring, and advanced data visualization.
                       </p>
                     </div>
                   </div>
@@ -51,9 +51,9 @@ const AboutSection = () => {
                   <div className="about-info-block">
                     <div className="about-icon-wrapper"><Briefcase className="about-icon" /></div>
                     <div className="about-info-content">
-                      <h3 className="about-info-title">Career Goals</h3>
+                      <h3 className="about-info-title">Current Focus</h3>
                       <p className="about-info-text">
-                        Currently seeking opportunities as a Data Analyst to apply my analytical capabilities, work with real-world complexities, and drive business growth.
+                        Actively handling freelance projects and seeking opportunities where I can apply my dual expertise in automation development and analytics to solve complex, real-world problems.
                       </p>
                     </div>
                   </div>

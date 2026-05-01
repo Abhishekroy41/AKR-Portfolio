@@ -12,14 +12,14 @@ const HeroSection = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
-        <motion.h4
-          className="greeting"
+        <motion.div
+          className="freelance-label"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <span className="typewriter">Hello, My name is</span>
-        </motion.h4>
+          <span className="pulse-dot"></span> Available for Freelance
+        </motion.div>
         <motion.h1
           className="name"
           initial="hidden"
@@ -52,34 +52,89 @@ const HeroSection = () => {
             )
           ))}
         </motion.h1>
-        <motion.h3
-          className="subtitle"
+        <motion.div
+          className="tagline-container"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          Data Analyst | SQL • Excel • Power BI • Python | Data Visualization
-        </motion.h3>
+          <span className="hero-tagline-badge">Web Developer & Automation Engineer · Data Analyst · Freelancer</span>
+        </motion.div>
         <motion.p
           className="description"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.7 }}
         >
-          Data-driven professional with a B.Tech in Computer Science (AI & ML),
-          specializing in extracting actionable insights from complex datasets through statistical
-          analysis and visualization. Proficient in Python, SQL, Excel, and Power BI, with hands-on
-          experience in data cleaning, modeling, and dashboard development. Strong analytical mindset
-          with a focus on transforming raw data into strategic, data-backed business decisions.
+          I build, automate, and analyze — handling automation workflows (n8n, APIs), server monitoring, web development, and data analytics. Open to freelance.
         </motion.p>
+        <motion.div
+          className="hero-skill-tags"
+        >
+          {[
+            { name: "n8n", color: "#38bdf8", rgb: "56, 189, 248" },
+            { name: "APIs", color: "#a78bfa", rgb: "167, 139, 250" },
+            { name: "Python", color: "#4ade80", rgb: "74, 222, 128" },
+            { name: "SQL", color: "#facc15", rgb: "250, 204, 21" },
+            { name: "Power BI", color: "#fb923c", rgb: "251, 146, 60" },
+            { name: "Web Dev", color: "#2dd4bf", rgb: "45, 212, 191" },
+            { name: "Server Monitoring", color: "#94a3b8", rgb: "148, 163, 184" }
+          ].map((skill, i) => (
+            <motion.span 
+              key={skill.name}
+              className="badge"
+              initial={{ opacity: 0, scale: 0.8, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ 
+                delay: 0.8 + i * 0.08, 
+                type: "spring", 
+                stiffness: 120 
+              }}
+              whileHover={{ 
+                scale: 1.08, 
+                y: -3,
+                boxShadow: `0 4px 15px rgba(${skill.rgb}, 0.4)`,
+                borderColor: skill.color,
+                backgroundColor: `rgba(${skill.rgb}, 0.1)`
+              }}
+              style={{ 
+                cursor: 'default',
+                borderLeft: `2px solid ${skill.color}`,
+                backgroundColor: `rgba(${skill.rgb}, 0.03)`
+              }}
+            >
+              {skill.name}
+            </motion.span>
+          ))}
+        </motion.div>
+        
+        <motion.div
+          className="hero-stat-cards"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.85 }}
+        >
+          <div className="stat-card">
+            <span className="stat-label">Current Role</span>
+            <span className="stat-value">Web Dev + Automation</span>
+          </div>
+          <div className="stat-card">
+            <span className="stat-label">Background</span>
+            <span className="stat-value">Data Analytics + AI/ML</span>
+          </div>
+          <div className="stat-card">
+            <span className="stat-label">Available</span>
+            <span className="stat-value">Freelance Projects</span>
+          </div>
+        </motion.div>
         <motion.div
           className="action-buttons"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.9 }}
         >
-          <a href="#projects" className="primary-btn">View my work</a>
-          <a href="/DA_CV.pdf" target="_blank" rel="noreferrer" className="secondary-btn">View resume</a>
+          <a href="#projects" className="primary-btn">View Projects</a>
+          <a href="#contact" className="secondary-btn">Hire Me</a>
           <div className="explore-wrapper">
             <Link to="/explore" className="secondary-btn highlight-explore-btn">Explore more</Link>
             <div className="explore-badge">
